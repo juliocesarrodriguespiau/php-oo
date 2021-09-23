@@ -7,16 +7,18 @@
     use Julio\Comercial\Persistencia;
     use PDO;
 
+    // classe que implementa a interface RepositorioPRodutos
     class PdoRepositorioProduto implements RepositorioProdutos
     {
         private PDO $conexao;
 
-        //injeçaõ de código com a dependência da conexão PDO para atuar.
+        //injeção de código com a dependência da conexão PDO para atuar.
         public function __construct(PDO $conexao)
         {
             $this->conexao = $conexao;
         }
 
+        // retorna array com todosProdutos
         public function todosProdutos(): array
         {
             $sqlConsulta = "SELECT * FROM produto";
@@ -27,7 +29,7 @@
 
         public function salvar(Produto $produto): bool
         {
-            if ($produto->getIdProduto() === null){
+            if (empty($produto->getIdProduto())){
                 return $this->createProduto($produto);
             }
 
@@ -39,7 +41,7 @@
             $sqlInsert = "INSERT INTO produto (nomeProduto, precoProduto) VALUES (:nome, :preco);";
             $stmt = $this->conexao->prepare($sqlInsert);
             $stmt->bindValue(':nome', $produto->getIdProduto(), PDO::PARAM_STR);
-            $stmt->bindValue(':preco', $produto->getPrecoProduto(), PDO::PARAM_STR);
+            $stmt->bindValue(':preco', $produto->getPreco(), PDO::PARAM_STR);
             $sucesso = $stmt->execute();
 
             if ($sucesso) {
@@ -63,8 +65,8 @@
             $sqlUpdate = "UPDATE produto SET nomeProduto = :nome, precoProduto = :preco WHERE idProduto = :id;";
             $stmt = $this->conexao->prepare($sqlUpdate);
             $stmt->bindValue(':nome', $produto->getNomeProduto(), PDO::PARAM_STR);
-            $stmt->bindValue(':preco', $produto->getPrecoProduto(), PDO::PARAM_STR);
-            $stmt->bindValue(':id', $produto->getIDProduto(), PDO::PARAM_INT);
+            $stmt->bindValue(':preco', $produto->getPreco(), PDO::PARAM_STR);
+            $stmt->bindValue(':id', $produto->getIdProduto(), PDO::PARAM_INT);
 
             return $stmt->execute();
         }
@@ -87,8 +89,8 @@
             foreach ($listaDadosProdutos as $dadosProduto) {
                 $listaProdutos[] = new Produto (
                     $dadosProduto['idProduto'],
-                    $dadosProduto['noemProduto'],
-                    $dadosProduto['precoProduto'],
+                    $dadosProduto['nomeProduto'],
+                    $dadosProduto['precoProduto']
                 );
                 echo"
                 <tr>
@@ -100,7 +102,7 @@
                         {$dadosProduto['nomeProduto']}
                     </td>
                     <td align='right'>
-                    ".number_format($dadosProduto['idProduto'],2,',','.')."
+                    ".number_format($dadosProduto['precoProduto'], 2, ',' , '.')."
                     </td>
                 </tr>";
             }

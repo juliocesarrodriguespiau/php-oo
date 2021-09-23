@@ -4,6 +4,7 @@
 
     use Julio\Comercial\Model\Produto;
 
+    //interface que representa todo Repository e seus métodos.
     interface RepositorioProdutos
     {
 

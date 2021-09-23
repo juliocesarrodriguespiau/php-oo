@@ -21,28 +21,28 @@
             return $this->idProduto;
         }
 
-        public function setIdProduto(?int $idProduto): void
-        {
-            $this->IdProduto = $idProduto;
-        }
-
-        public function getNomeProduto(): string
+        public function getNomeProduto(): string //getProduto
         {
             return $this->nomeProduto;
         }
 
-        public function setNomeProduto($nomeProduto): void
-        {
-            $this->nomeProduto = $nomeProduto;
-        }
-
-        public function getPrecoProduto(): float
+        public function getPreco(): float //getPreco
         {
             return $this->precoProduto;
         }
 
-        public function setPrecoProduto($precoProduto): void
+        public function setIdProduto(int $id): void
         {
-            $this->precoProduto = $precoProduto;
+            $this->idProduto = $id;
+        }
+
+        public function setProduto(string $nome): void
+        {
+            $this->nomeProduto = $nome;
+        }
+
+        public function setPreco(float $preco): void
+        {
+            $this->precoProduto = $preco;
         }
     }
