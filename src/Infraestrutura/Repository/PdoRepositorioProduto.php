@@ -2,9 +2,8 @@
 
     namespace Julio\Comercial\Infraestrutura\Repository;
 
-    use Julio\Comercial\Model\Produto;
+    use Julio\Comercial\Dominio\Model\Produto;
     use Julio\Comercial\Dominio\Repository\RepositorioProdutos;
-    use Julio\Comercial\Persistencia;
     use PDO;
 
     // classe que implementa a interface RepositorioPRodutos

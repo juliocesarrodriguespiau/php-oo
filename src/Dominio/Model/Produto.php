@@ -1,6 +1,6 @@
 <?php
 
-    namespace Julio\Comercial\Model;
+    namespace Julio\Comercial\Dominio\Model;
     
     //classe modelo entity - representa uma entidade.
     class Produto
