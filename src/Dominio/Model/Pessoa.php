@@ -2,6 +2,8 @@
 
     namespace Julio\Comercial\Dominio\Model;
 
+    use DateTimeInterface;
+
     //require_once 'src/Model/AcessoAtributos.php';
     require_once 'autoload.php';
 
@@ -12,17 +14,18 @@
         // Ideal definir sempre os atributos privados e 
         // na aplicação definir os métodos de alteração e exibição desses dados.
         protected string      $nome;
-        protected int         $idade;
+        protected DateTimeInterface $dataNascimento;
         protected Endereco    $endereco; // ASSOCIAÇÃO Pessoa "tem um" Endereco.
         protected float       $desconto; // pode ser acessado na classe mãe e modificado nas calasses filhas.
         private static int    $numDePessoas = 0;
 
         // COMPORTAMENTOS, MÉTODOS = funções - function
-        public function __construct(string $nome, int $idade, Endereco $endereco)
+        public function __construct(string $nome, DateTimeInterface $dataNascimento, Endereco $endereco)
         {
             $this->nome = $nome;
-            $this->idade = $idade;
-            $this->validaIdade($idade);
+            $this->dataNascimento = $dataNascimento;
+            //$this->idade = $idade;
+            //$this->validaIdade($idade);
             $this->endereco = $endereco;
             $this->setDesconto(); // definindo desconto
             self::$numDePessoas++; // igual a: Pessoa::$numDePessoas++;
@@ -41,9 +44,9 @@
             return $this->nome;
         }
 
-        public function getIdade(): int
+        public function getdataNascimento(): DateTimeInterface
         {
-            return $this->idade;
+            return $this->dataNascimento;
         }
 
         // SET - SETA OU EDITA
@@ -52,9 +55,9 @@
             $this->nome = $nome;
         }
 
-        public function setIdade(string $idade): void
+        public function setdataNascimento(DateTimeInterface $dataNascimento): void
         {
-            $this->idade = $idade;
+            $this->dataNascimento = $dataNascimento;
         }
 
         // MÉTODO STATICO
@@ -64,14 +67,25 @@
         }
 
         //MÉTODO ESPECIAL OU ESCÍFICO
-        private function validaIdade(int $idade): void
-        {
-            if ($this->idade > 0 && $this->idade < 120) {
-                $this->idade = $idade;
-            } else {
-                echo "Idade não permitida";
-                exit;
-            }
+        // private function validaIdade(int $idade): void
+        // {
+        //     if ($this->idade > 0 && $this->idade < 120) {
+        //         $this->idade = $idade;
+        //     } else {
+        //         echo "Idade não permitida";
+        //         exit;
+        //     }
+        // }
+
+        // método idade() responsável por calcular a idade
+        // retorna um dado do tipo inteiro, 
+        // utilizando o diff para calcular a idade através da data getDataNascimento
+        // e data atual ->diff(new \DateTimeImutable) 
+        // apresentando o ano ->y;
+        public function idade() {
+            return $this->getdataNascimento()
+                ->diff(new \DateTimeImmutable())
+                ->y;
         }
 
         //método abstrato. Quem herdar de Pessoa, vai ser obrigado a implementar esse método.

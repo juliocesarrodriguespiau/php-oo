@@ -2,27 +2,29 @@
 
     namespace Julio\Comercial\Dominio\Model;
 
-    class Cliente extends Pessoa
+use DateTimeInterface;
+
+class Cliente extends Pessoa
     {
-        private string $dataNascimento;
+        //private string $dataNascimento;
         private float $renda;
 
-        public function __construct(string $nome, int $idade, Endereco $endereco, string $dataNascimento, float $renda)
+        public function __construct(string $nome, DateTimeInterface $dataNascimento, Endereco $endereco, float $renda)
         {
-            parent::__construct($nome, $idade, $endereco);
+            parent::__construct($nome, $dataNascimento, $endereco);
             $this->dataNascimento = $dataNascimento;
             $this->renda = $renda;
         }
 
-        public function getDataNascimento(): string
-        {
-            return $this->dataNascimento;
-        }
+        // public function getDataNascimento(): string
+        // {
+        //     return $this->dataNascimento;
+        // }
 
-        public function setDataNascimento(string $dataNascimento): void
-        {
-            $this->dataNascimento = $dataNascimento;
-        }
+        // public function setDataNascimento(string $dataNascimento): void
+        // {
+        //     $this->dataNascimento = $dataNascimento;
+        // }
 
         public function getRenda(): float
         {
@@ -44,7 +46,8 @@
         public function __toString(): string
         {
             return  "<p>Nome: " . $this->nome . 
-                    "<br>Idade: " . $this->idade . " anos." .
+                    "<br>Idade: " . $this->idade() . " anos." .
+                    "<br>Nasc.: " . $this->getdataNascimento()->format('d/m/Y') .
                     "<br>Endereço: " . $this->endereco->getNomeLogradouro() . ", " . 
                     $this->endereco->getNumero() . " - " . $this->endereco->getBairro() . 
                     "<br>Data Nascimento: " . $this->dataNascimento . 

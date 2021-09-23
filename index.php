@@ -5,8 +5,7 @@ require_once 'autoload.php';
 use Julio\Comercial\Infraestrutura\CriadorConexao;
 use Julio\Comercial\Infraestrutura\Repository\PdoRepositorioProduto;
 use Julio\Comercial\Dominio\Model\Produto;
-use Julio\Comercial\Dominio\Model\AcessoAtributos;
-use Julio\Comercial\Dominio\Model\Autenticar;
+
 use Julio\Comercial\Dominio\Model\Cliente;
 use Julio\Comercial\Dominio\Model\Endereco;
 use Julio\Comercial\Dominio\Model\Funcionario;

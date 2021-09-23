@@ -5,15 +5,17 @@
     //require_once 'src/Model/Autenticar.php';
     require_once 'autoload.php';
 
+    use DateTimeInterface;
+
     class Funcionario extends Pessoa implements Autenticar
     {
         private string $cargo;
         private float $salario;
         private string $senha;
 
-        public function __construct(string $nome, int $idade, Endereco $endereco, string $cargo, float $salario)
+        public function __construct(string $nome, DateTimeInterface $dataNascimento, Endereco $endereco, string $cargo, float $salario)
         {
-            parent::__construct($nome, $idade, $endereco);
+            parent::__construct($nome, $dataNascimento, $endereco);
             $this->cargo = $cargo;
             $this->salario = $salario;
         }
@@ -47,9 +49,10 @@
         //SOBRESCRITA DE MÉTODO ou SOBRESCREVER - POLMORFISMO
         public function __toString(): string
         {
-            return  "<p>Nome: ".$this->nome . 
-                    "<br>Idade: ".$this->idade . " anos." . 
-                    "<br>Endereço: ".$this->endereco->getNomeLogradouro() . ", " . 
+            return  "<p>Nome: " . $this->nome . 
+                    "<br>Idade: " . $this->idade() . " anos." .
+                    "<br>Nasc.: " . $this->getdataNascimento()->format('d/m/Y') .
+                    "<br>Endereço: " . $this->endereco->getNomeLogradouro() . ", " . 
                     $this->endereco->getNumero() . " - " . $this->endereco->getBairro() . 
                     "<br>Cargo: " . $this->cargo .
                     "<br>Salário: R$ " . $this->salario .  
