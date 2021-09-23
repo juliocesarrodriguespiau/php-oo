@@ -1,6 +1,6 @@
 <?php
 
-    namespace Julio\Comercial\Model;
+    namespace Julio\Comercial\Dominio\Model;
 
     //require_once 'src/Model/AcessoAtributos.php';
     require_once 'autoload.php';
